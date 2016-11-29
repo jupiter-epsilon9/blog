@@ -7,7 +7,7 @@ tags        = [ "Development", "Go", "profiling" ]
 topics      = [ "Development", "Go" ]
 slug        = "nitro"
 project_url = "https://github.com/spf13/nitro"
-#banner      = "aaa"
+banner      = "aaa"
 #thumbnail   = "aav"
 +++
 # Nitro
