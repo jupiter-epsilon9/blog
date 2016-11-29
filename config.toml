@@ -1,0 +1,23 @@
+#baseurl = "http://replace-this-with-your-hugo-site.com/"
+baseurl = ""
+title = "Blog Jupitera"
+languageCode = "pl-pl"
+
+[params]
+   sidebartitle = "Blog Jupitera"
+#   sidebartagline = "Is super awesome"
+#   sidebarphoto = "/img/photo.png"
+  	categoriescss = "/css/categories.css"
+
+[[menu.main]]
+		name = "Blog"
+		url = "/posts"
+
+#[[menu.main]]
+#		name = "Blog2"
+#		url = "/posts"
+
+[[menu.social]]
+		pre = "<i class='fa fa-twitter'></i>"
+		url = "http://www.twitter.com/shift8creative"
+		identifier = "twitter"
