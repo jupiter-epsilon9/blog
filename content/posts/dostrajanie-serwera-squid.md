@@ -14,12 +14,10 @@ Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.
 ## Komunikat "possible SYN flooding"
 *kernel: possible SYN flooding on port 3128. Sending cookies.*
  
-Rozwiążane przez zwiększenie tcp_max_syn_backlog
+Wiadomość pojawia się, gdy kolejka *SYN backlog* jest pełna. Jeżeli nie jest to atak *SYN flood*, tylko na serwerze jest duży ruch, to należy zwiększyć tcp_max_syn_backlog.
 ~~~
 [root@proxy ~]# cat /proc/sys/net/ipv4/tcp_max_syn_backlog
 262144
-[root@proxy ~]# cat /proc/sys/net/core/somaxconn
-4096
 ~~~
 
 ## Błędy "Page Allocation Failure"
@@ -30,7 +28,6 @@ Rozwiązane poprzez zwiększenie parametru min_free_kbytes
 
 ~~~
 [root@proxy ~]# echo 540732 > /proc/sys/vm/min_free_kbytes
-[root@proxy ~]# cat /proc/sys/vm/min_free_kbytes
 ~~~
 
 > Re: Problems with swap? "swapper: page allocation failure. order:3, mode:0x4020"
@@ -50,71 +47,33 @@ Rozwiązane poprzez zwiększenie parametru min_free_kbytes
 > number, the less errors you will see, but it will also decrease the memory available for user space
 > applications).
 
-## Komunikat "Protocol not available" w cache.log
+## Komunikat "Protocol not available" w cache.log Squid'a
 
 */var/log/squid/cache.log*
 ~~~
 2011/01/04 11:03:38| IpIntercept.cc(137) NetfilterInterception: NF getsockopt(SO_ORIGINAL_DST) failed" on FD 12: (92) Protocol not available
 ~~~
 
-Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID.
-
-http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html
-
-Dla pełnego bezpieczeństwa polecają squid oraz nat na tym samym hoscie
-
-Załadowanie modułu śledzącego połączenia rozwiązuje problem
+Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID. Poleca się instalować squid oraz NAT na tym samym hoscie. Załadowanie modułu śledzącego połączenia rozwiązało problem i komunikat zniknął.
 ~~~
 modprobe ip_conntrack
 ~~~
-Wygląda na to że dopiero po załadowaniu modułu ip_conntrack Squid rozumie skąd dostaje połączenia.
 
 ## Komunikat nf_conntrack: table full, dropping packet
 
 *nf_conntrack: table full, dropping packet*
 
 ~~~
-root@proxy ~]# echo 131072 > /proc/sys/net/nf_conntrack_max
-[root@proxy ~]#  cat /proc/sys/net/netfilter/nf_conntrack_max
-131072
-~~~
-
-Należy też stuningować inne parametry takie jak zbyt duże domyślne czasy timeout
-
-http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/
-
-~~~
-[root@proxy ~]# sysctl -a | grep conntrack | grep timeout
-net.netfilter.nf_conntrack_generic_timeout = 600
-net.netfilter.nf_conntrack_frag6_timeout = 60
-net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 120
-net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 60
-net.netfilter.nf_conntrack_tcp_timeout_established = 432000
-net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
-net.netfilter.nf_conntrack_tcp_timeout_last_ack = 30
-net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close = 10
-net.netfilter.nf_conntrack_tcp_timeout_max_retrans = 300
-net.netfilter.nf_conntrack_tcp_timeout_unacknowledged = 300
-net.netfilter.nf_conntrack_udp_timeout = 30
-net.netfilter.nf_conntrack_udp_timeout_stream = 180
-net.netfilter.nf_conntrack_icmpv6_timeout = 30
-net.netfilter.nf_conntrack_icmp_timeout = 30
-net.netfilter.nf_conntrack_events_retry_timeout = 15
-
-echo 240 >  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
-echo 108000 >  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
+[root@proxy ~]# echo 131072 > /proc/sys/net/nf_conntrack_max
+[root@proxy ~]# echo 240 >  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
+[root@proxy ~]# echo 108000 >  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
 ~~~
 
 ## Zbyt mała ilość deskryptorów
 
 *WARNING! Your cache is running out of filedescriptors*
 
-Należy ustawić deskryptory w systemie i w Squid
-
-Rozwiązane poprzez:
-http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/
+Należy zwiększyć ilość deskryptorów w systemie i w Squid'zie:
 
 ~~~
 vi /etc/security/limits.conf
@@ -134,14 +93,14 @@ max_filedesc 24567
 
 ## Ostrzeżenie "Disk space over limit"
 
-W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość
+W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość.
 
 *WARNING: Disk space over limit: 16777424 KB > 16777216 KB*
 
-http://bugs.contribs.org/show_bug.cgi?id=664
+http://bugs.contribs.org/show_bug.cgi?id=664 <br> 
 http://bugs.contribs.org/show_bug.cgi?id=664#c3
 
-Komunikat oznacza, że rozmiar cache jest większy odustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.
+Komunikat oznacza, że rozmiar cache jest większy od ustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.
 
 Problem można rozwiązać np poprzez zwiększenie pojemności cache
 ~~~
@@ -151,15 +110,15 @@ cache_dir aufs /cache 32768 32 512
 
 ## Wszystkie sockety zostały zużyte
 
-*CommBind: Cannot bind socket FD 98 to *:0: (98) Address already in use*
-
-http://www.tigase.org/content/linux-settings-high-load-systems
+*CommBind: Cannot bind socket FD 98 to \*:0: (98) Address already in use*
 
 Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000
+~~~
 net.ipv4.ip_local_port_range=1024 65000
-Ustawienia TCP_KEEPALIVE
+~~~
 
-http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0
+## Ustawienia TCP_KEEPALIVE
+
 http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html
 
 ~~~

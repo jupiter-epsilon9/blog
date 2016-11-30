@@ -64,4 +64,6 @@ Get-VM | Select-Object Name, MemoryGB, NumCpu, `
    | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
 ~~~
 
+Tak przygotowany plik można zaimportować do Excel'a lub OpenOffcie Calc .
+
 *Autor zdjęcia Arthur Caranta, Datacenter @ Night*
