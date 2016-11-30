@@ -3,6 +3,7 @@ baseurl = ""
 title = "Blog Jupitera"
 languageCode = "pl-pl"
 
+
 [params]
    sidebartitle = "Blog Jupitera"
 #   sidebartagline = "Is super awesome"
