@@ -2,39 +2,252 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog Jupitera</title>
-    <link>http://jupiter.098.pl/index.xml</link>
+    <link>/index.xml</link>
     <description>Recent content on Blog Jupitera</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Fri, 21 Jun 2013 11:27:27 -0400</lastBuildDate>
-    <atom:link href="http://jupiter.098.pl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Nov 2016 09:54:32 +0100</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Nitro: A quick and simple profiler for Go</title>
-      <link>http://jupiter.098.pl/posts/nitro/</link>
-      <pubDate>Fri, 21 Jun 2013 11:27:27 -0400</pubDate>
+      <title>Serwer vSphere i PowerCLI</title>
+      <link>/posts/vsphere-powercli/</link>
+      <pubDate>Wed, 30 Nov 2016 09:54:32 +0100</pubDate>
       
-      <guid>http://jupiter.098.pl/posts/nitro/</guid>
-      <description>&lt;h1 id=&#34;nitro&#34;&gt;Nitro&lt;/h1&gt;
+      <guid>/posts/vsphere-powercli/</guid>
+      <description>&lt;p&gt;Czasami szybciej jest posłuzyć się konsolą tekstową niż środowiskiem graficznym. Wiedzą to wszyscy użytkownicy Linuxa. Komercyjny vSphere również posiada taką możliwość za pośrednictwem PowerCLI - interfejsu do PowerShell&amp;rsquo;a.&lt;/p&gt;
 
-&lt;p&gt;Quick and easy performance analyzer library for &lt;a href=&#34;http://golang.org/&#34;&gt;Go&lt;/a&gt;.
-&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;h2 id=&#34;przykładowe-polecenia&#34;&gt;Przykładowe polecenia:&lt;/h2&gt;
 
-&lt;p&gt;Nitro is a quick and easy performance analyzer library for Go.
-It is useful for comparing A/B against different drafts of functions
-or different functions.&lt;/p&gt;
+&lt;p&gt;Nawiązanie sesji z vSphere:&lt;/p&gt;
 
-&lt;h2 id=&#34;implementing-nitro&#34;&gt;Implementing Nitro&lt;/h2&gt;
-
-&lt;p&gt;Using Nitro is simple. First, use &lt;code&gt;go get&lt;/code&gt; to install the latest version
-of the library.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ go get github.com/spf13/nitro
+&lt;pre&gt;&lt;code&gt;Connect-VIServer 10.0.0.10
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Next, include nitro in your application.&lt;/p&gt;</description>
+&lt;p&gt;Wyświetlenie wszystkich migawek:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Get-VM | get-snapshot
+Get-VM | get-snapshot | select vm,name,sizegb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wyświetlenie wszystkich metod dla wybranej maszyny:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Get-VM -name storage1 | gm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Przeniesienie maszyny &lt;em&gt;storage1&lt;/em&gt; do magazynu danych &lt;em&gt;ibm_ds_02&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Get-VM -name storage1 | Move-VM -Datastore ibm_ds_02
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Przykłady pętli:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wyświetla informacje o dysku dla wszystkich maszyn, których nazwa zaczyna sie na STOR:
+Get-VM -name STOR* | %{Get-Harddisk -vm $_.name} 
+ 
+# przenosi wszystkie maszyny znajdujące się w folderze DO_MIGRACJI do magazynu ibm_ds_02:
+Get-VM -location DO_MIGRACJI | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
+
+# jak wyżej, tylko wg nazwy:
+Get-VM -name STOR-* | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
+
+# jak wyżej, nazwy podane bezpośrednio:
+Get-VM -name storage1,sotrage2,database1,database2,webserver1 | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;przygotowanie-raportu-w-formacie-csv-plik-zostanie-utworzony-na-pulpicie&#34;&gt;Przygotowanie raportu w formacie CSV - plik zostanie utworzony na pulpicie:&lt;/h2&gt;
+
+&lt;p&gt;Raport zawiera: Nazwa maszyny, pojemność w GB, ilość CPU, łączna wielkość dysków, nazwy datastore zaczynające się od ibm*, notatkę.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Connect-VIServer 10.0.0.20
+$CSV = [Environment]::GetFolderPath(&amp;quot;Desktop&amp;quot;)+&amp;quot;\vm.csv&amp;quot;
+Get-VM | Select-Object Name, MemoryGB, NumCpu, `
+   @{n=&amp;quot;HardDiskSizeGB&amp;quot;; e={(Get-HardDisk -VM $_ | Measure-Object -Sum CapacityGB).Sum}}, `
+   @{n=&amp;quot;Datastore&amp;quot;; e={(Get-Datastore ibm* -VM $_).name}}, Notes `
+   | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Autor zdjęcia Arthur Caranta, Datacenter @ Night&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Dostrajanie serwera squid</title>
+      <link>/posts/dostrajanie-serwera-squid/</link>
+      <pubDate>Wed, 03 Apr 2013 11:35:47 +0100</pubDate>
+      
+      <guid>/posts/dostrajanie-serwera-squid/</guid>
+      <description>&lt;p&gt;Moje przygody z serwerem Squid i rozwiązania problemów, jakie napotkałem podczas jego użytkowania.
+Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;komunikat-possible-syn-flooding&#34;&gt;Komunikat &amp;ldquo;possible SYN flooding&amp;rdquo;&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;kernel: possible SYN flooding on port 3128. Sending cookies.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Rozwiążane przez zwiększenie tcp_max_syn_backlog&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@proxy ~]# cat /proc/sys/net/ipv4/tcp_max_syn_backlog
+262144
+[root@proxy ~]# cat /proc/sys/net/core/somaxconn
+4096
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;błędy-page-allocation-failure&#34;&gt;Błędy &amp;ldquo;Page Allocation Failure&amp;rdquo;&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;swapper: page allocation failure. order:1, mode:0x20&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Rozwiązane poprzez zwiększenie parametru min_free_kbytes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@proxy ~]# echo 540732 &amp;gt; /proc/sys/vm/min_free_kbytes
+[root@proxy ~]# cat /proc/sys/vm/min_free_kbytes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Re: Problems with swap? &amp;ldquo;swapper: page allocation failure. order:3, mode:0x4020&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;teddy_bteddy_b 29 Oct 2010, 21:09&lt;/p&gt;
+
+&lt;p&gt;The page allocation failures are not just happening out of nowhere… When posting about such issues, it
+would help to tell what you run either on your router, or on the connected clients, and what is your
+router model. The most probable reason for these errors are running unrestricted torrents (which is
+never a good idea), or other network activity generating lots and lots of connections and making NAT
+to work hard.&lt;/p&gt;
+
+&lt;p&gt;The best way to deal with these errors is to put restrictions on the processes that cause them - i.e.
+for torrents it&amp;rsquo;s to limit the number of connections and bandwidth. If you&amp;rsquo;re unable or not willing to
+make these restrictions for any reason, you can also try to increase the value in
+&amp;ldquo;/proc/sys/vm/min_free_kbytes&amp;rdquo; - that should help to reduce the number of these errors (the more the
+number, the less errors you will see, but it will also decrease the memory available for user space
+applications).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;komunikat-protocol-not-available-w-cache-log&#34;&gt;Komunikat &amp;ldquo;Protocol not available&amp;rdquo; w cache.log&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;/var/log/squid/cache.log&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2011/01/04 11:03:38| IpIntercept.cc(137) NetfilterInterception: NF getsockopt(SO_ORIGINAL_DST) failed&amp;quot; on FD 12: (92) Protocol not available
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html&#34;&gt;http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Dla pełnego bezpieczeństwa polecają squid oraz nat na tym samym hoscie&lt;/p&gt;
+
+&lt;p&gt;Załadowanie modułu śledzącego połączenia rozwiązuje problem&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;modprobe ip_conntrack
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wygląda na to że dopiero po załadowaniu modułu ip_conntrack Squid rozumie skąd dostaje połączenia.&lt;/p&gt;
+
+&lt;h2 id=&#34;komunikat-nf-conntrack-table-full-dropping-packet&#34;&gt;Komunikat nf_conntrack: table full, dropping packet&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;nf_conntrack: table full, dropping packet&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@proxy ~]# echo 131072 &amp;gt; /proc/sys/net/nf_conntrack_max
+[root@proxy ~]#  cat /proc/sys/net/netfilter/nf_conntrack_max
+131072
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Należy też stuningować inne parametry takie jak zbyt duże domyślne czasy timeout&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/&#34;&gt;http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@proxy ~]# sysctl -a | grep conntrack | grep timeout
+net.netfilter.nf_conntrack_generic_timeout = 600
+net.netfilter.nf_conntrack_frag6_timeout = 60
+net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 120
+net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 60
+net.netfilter.nf_conntrack_tcp_timeout_established = 432000
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
+net.netfilter.nf_conntrack_tcp_timeout_last_ack = 30
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_close = 10
+net.netfilter.nf_conntrack_tcp_timeout_max_retrans = 300
+net.netfilter.nf_conntrack_tcp_timeout_unacknowledged = 300
+net.netfilter.nf_conntrack_udp_timeout = 30
+net.netfilter.nf_conntrack_udp_timeout_stream = 180
+net.netfilter.nf_conntrack_icmpv6_timeout = 30
+net.netfilter.nf_conntrack_icmp_timeout = 30
+net.netfilter.nf_conntrack_events_retry_timeout = 15
+
+echo 240 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
+echo 108000 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;zbyt-mała-ilość-deskryptorów&#34;&gt;Zbyt mała ilość deskryptorów&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;WARNING! Your cache is running out of filedescriptors&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Należy ustawić deskryptory w systemie i w Squid&lt;/p&gt;
+
+&lt;p&gt;Rozwiązane poprzez:
+&lt;a href=&#34;http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/&#34;&gt;http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /etc/security/limits.conf
+
+dodano limit 32768
+*               -       nofile          32768
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wylogowanie/zalogowanie do konsoli&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# ulimit -a | grep &#39;open files&#39;
+open files                      (-n) 32768
+vi /etc/squid/squid.conf
+max_filedesc 24567
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ostrzeżenie-disk-space-over-limit&#34;&gt;Ostrzeżenie &amp;ldquo;Disk space over limit&amp;rdquo;&lt;/h2&gt;
+
+&lt;p&gt;W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;WARNING: Disk space over limit: 16777424 KB &amp;gt; 16777216 KB&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bugs.contribs.org/show_bug.cgi?id=664&#34;&gt;http://bugs.contribs.org/show_bug.cgi?id=664&lt;/a&gt;
+&lt;a href=&#34;http://bugs.contribs.org/show_bug.cgi?id=664#c3&#34;&gt;http://bugs.contribs.org/show_bug.cgi?id=664#c3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Komunikat oznacza, że rozmiar cache jest większy odustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.&lt;/p&gt;
+
+&lt;p&gt;Problem można rozwiązać np poprzez zwiększenie pojemności cache&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /etc/squid/squid.conf
+cache_dir aufs /cache 32768 32 512
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;wszystkie-sockety-zostały-zużyte&#34;&gt;Wszystkie sockety zostały zużyte&lt;/h2&gt;
+
+&lt;p&gt;*CommBind: Cannot bind socket FD 98 to &lt;em&gt;:0: (98) Address already in use&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.tigase.org/content/linux-settings-high-load-systems&#34;&gt;http://www.tigase.org/content/linux-settings-high-load-systems&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000
+net.ipv4.ip_local_port_range=1024 65000
+Ustawienia TCP_KEEPALIVE&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0&#34;&gt;http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0&lt;/a&gt;
+&lt;a href=&#34;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&#34;&gt;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo 60 &amp;gt; /proc/sys/net/ipv4/tcp_keepalive_time
+echo 3 &amp;gt; /proc/sys/net/ipv4/tcp_keepalive_probes
+echo 50 &amp;gt; /proc/sys/net/ipv4/tcp_keepalive_intvl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Jeżeli połączenie nie odpowiada przez 60 sekund zacznij wysyłać próby, łącznie 3 co 50 sekund. Jeżeli żadna się nie powiedzie, to uznaj połączenie za martwe.&lt;/p&gt;
+
+&lt;p&gt;Ustawienie na stałę w /etc/sysctl.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;net.ipv4.tcp_keepalive_time = 60
+net.ipv4.tcp_keepalive_probes = 3
+net.ipv4.tcp_keepalive_intvl = 50
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;obrazek w nagłówku: www.cwcs.co.uk&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
