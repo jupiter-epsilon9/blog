@@ -6,9 +6,9 @@ languageCode = "pl-pl"
 
 [params]
    sidebartitle = "Blog Jupitera"
-#   sidebartagline = "Is super awesome"
-#   sidebarphoto = "/img/photo.png"
-  	categoriescss = "/css/categories.css"
+   sidebartagline = "Is super awesome"
+   sidebarphoto = "/img/sidebarphoto.png"
+	categoriescss = "/css/categories.css"
 
 [[menu.main]]
 		name = "Blog"
