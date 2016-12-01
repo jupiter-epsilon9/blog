@@ -1,6 +1,6 @@
 +++
 title = "Serwer vSphere i PowerCLI"
-description = "Przykładowa sesja z serwerem vSphere poprzez PowerCLI"
+description = "Przykładowe sesje z serwerem vSphere poprzez PowerCLI"
 draft = false
 date = "2016-11-30T09:54:32+01:00"
 tags = [ "powercli", "vSphere", "vmware" ]
