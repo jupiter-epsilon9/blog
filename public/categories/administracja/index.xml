@@ -9,6 +9,78 @@
     <atom:link href="http://jupiter.098.pl/categories/administracja/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Historie z wiersza poleceń</title>
+      <link>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</link>
+      <pubDate>Sun, 01 Dec 2013 11:12:02 +0100</pubDate>
+      
+      <guid>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</guid>
+      <description>&lt;p&gt;Polecenia, które mogą się przydać.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;mysql-utworzenie-bazy-danych-oraz-użytkownika-i-przyznanie-zestawu-uprawnień&#34;&gt;Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;CREATE DATABASE surreal_todo ;
+CREATE USER &#39;surreal_todo&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;haslo123&#39;;
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE ON surreal_todo.* TO &#39;surreal_todo&#39;@&#39;localhost&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;nadanie dostępu z innego hosta. Mysql musi nasłuchiwać na odpowiednim interfejsie&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON do.* to &#39;do&#39;@&#39;172.20.4.135&#39; IDENTIFIED BY &#39;haslo123&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;solaris-wyświetlenie-wolnej-przestrzeni-dyskowej-na-partycjach-w-gb-filesystem-punkt-montowania-rozmiar-w-gb&#34;&gt;Solaris - Wyświetlenie wolnej przestrzeni dyskowej na partycjach - w GB. Filesystem / punkt montowania / rozmiar w GB&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;df -k | awk &#39;{used=$3/(1024*1024) ; print $6&amp;quot;;&amp;quot;$1&amp;quot;;&amp;quot;used}&#39;       # oddzielone średnikami jak w csv
+df -k | awk &#39;{used=$3/(1024*1024) ; print $6&amp;quot;\t\t&amp;quot;$1&amp;quot;\t\t&amp;quot;used}&#39; # oddzielone tabulatorami
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;przekopiowanie-plików-z-wykorzystaniem-tar-i-scp&#34;&gt;Przekopiowanie plików z wykorzystaniem tar i scp&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;tar -czPf -  /var/log/squid/ | ssh 172.20.4.44 &amp;quot;cat | tar -xzvPf -&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Zachowuje prawa dostępu i uzytkowników. Zachowuje ścieżki (parametr p) dzięki czemu pliki wylądują w tej samej lokalizacji z której były tar&amp;rsquo;owane. Pliki są kompresowane a następnie przesyłane w jednym archiwum tar, co przyspiesza kopiowanie w sytuacji w której mamy do czynienia z dużą ilością małych plików.&lt;/p&gt;
+
+&lt;h2 id=&#34;wylistowanie-aplikaci-wraz-z-portami-na-których-nasłuchują&#34;&gt;Wylistowanie aplikaci wraz z portami, na których nasłuchują&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;netstat -tulpn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;apache&#34;&gt;Apache&lt;/h2&gt;
+
+&lt;h3 id=&#34;polecenie-wyodrębnia-z-dziennika-serwera-www-adres-ip-który-więcej-niż-500-razy-odnotował-swoją-aktywność&#34;&gt;Polecenie wyodrębnia z dziennika serwera WWW adres IP, który więcej niż 500 razy odnotował swoją aktywność&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;for ip in `cat access.log | cut -d &#39; &#39; -f 1 | sort | uniq`;  do { count=`grep ^$ip access.log | wc -l`;  if [[ &amp;quot;$count&amp;quot; -gt &amp;quot;500&amp;quot; ]]; then echo &amp;quot;$count: $ip&amp;quot;; fi }; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;przekierowanie-z-http-na-https&#34;&gt;Przekierowanie z http na https&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;RewriteEngine on
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;prosty-czat-na-konsoli&#34;&gt;Prosty czat na konsoli&lt;/h2&gt;
+
+&lt;p&gt;Okno do wpisywania komunikatów. Każdy użytkownik uruchamia poniższy skrypt&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;user=&amp;quot;Jan&amp;quot;;while true; do read msg; date=`date +&amp;quot;%T&amp;quot;`; echo &amp;quot;[$date] $user: $msg&amp;quot; &amp;gt;&amp;gt; out; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Okno odbierania&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tail -f out
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wyczyszczenie rozmowy&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;shred out
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
       <title>Dostrajanie serwera squid</title>
       <link>http://jupiter.098.pl/posts/dostrajanie-serwera-squid/</link>
       <pubDate>Wed, 03 Apr 2013 11:35:47 +0100</pubDate>

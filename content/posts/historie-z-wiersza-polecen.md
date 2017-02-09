@@ -1,9 +1,11 @@
 +++
 title = "Historie z wiersza poleceń"
-description = ""
+description = "Wiersz poleceń - nie tylko bash"
 draft = false
 date = "2013-12-01T11:12:02+01:00"
-
+tags = [ "linux", "bash", "vsphere", "solaris" ]
+Categories = [ "Informatyka", "Administracja" ]
+banner = "../dostrajanie-serwera-squid.jpg"
 +++
 
 Polecenia, które mogą się przydać.

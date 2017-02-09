@@ -2,76 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog Jupitera</title>
-    <link>http://jupiter.098.pl/tags/vsphere/index.xml</link>
+    <link>http://jupiter.098.pl/tags/bash/index.xml</link>
     <description>Recent content on Blog Jupitera</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <atom:link href="http://jupiter.098.pl/tags/vsphere/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Serwer vSphere i PowerCLI</title>
-      <link>http://jupiter.098.pl/posts/vsphere-powercli/</link>
-      <pubDate>Wed, 30 Nov 2016 09:54:32 +0100</pubDate>
-      
-      <guid>http://jupiter.098.pl/posts/vsphere-powercli/</guid>
-      <description>&lt;p&gt;Czasami szybciej jest posłuzyć się konsolą tekstową niż środowiskiem graficznym. Wiedzą to wszyscy użytkownicy Linuxa. Komercyjny vSphere również posiada taką możliwość za pośrednictwem PowerCLI - interfejsu do PowerShell&amp;rsquo;a.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;przykładowe-polecenia&#34;&gt;Przykładowe polecenia:&lt;/h2&gt;
-
-&lt;p&gt;Nawiązanie sesji z vSphere:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Connect-VIServer 10.0.0.10
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Wyświetlenie wszystkich migawek:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Get-VM | get-snapshot
-Get-VM | get-snapshot | select vm,name,sizegb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Wyświetlenie wszystkich metod dla wybranej maszyny:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Get-VM -name storage1 | gm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Przeniesienie maszyny &lt;em&gt;storage1&lt;/em&gt; do magazynu danych &lt;em&gt;ibm_ds_02&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Get-VM -name storage1 | Move-VM -Datastore ibm_ds_02
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Przykłady pętli:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# wyświetla informacje o dysku dla wszystkich maszyn, których nazwa zaczyna sie na STOR:
-Get-VM -name STOR* | %{Get-Harddisk -vm $_.name} 
- 
-# przenosi wszystkie maszyny znajdujące się w folderze DO_MIGRACJI do magazynu ibm_ds_02:
-Get-VM -location DO_MIGRACJI | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
-
-# jak wyżej, tylko wg nazwy:
-Get-VM -name STOR-* | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
-
-# jak wyżej, nazwy podane bezpośrednio:
-Get-VM -name storage1,sotrage2,database1,database2,webserver1 | %{Move-VM -vm $_  -Datastore ibm_ds_02 }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;przygotowanie-raportu-w-formacie-csv-plik-zostanie-utworzony-na-pulpicie&#34;&gt;Przygotowanie raportu w formacie CSV - plik zostanie utworzony na pulpicie:&lt;/h2&gt;
-
-&lt;p&gt;Raport zawiera: Nazwa maszyny, pojemność w GB, ilość CPU, łączna wielkość dysków, nazwy datastore zaczynające się od ibm*, notatkę.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Connect-VIServer 10.0.0.20
-$CSV = [Environment]::GetFolderPath(&amp;quot;Desktop&amp;quot;)+&amp;quot;\vm.csv&amp;quot;
-Get-VM | Select-Object Name, MemoryGB, NumCpu, `
-   @{n=&amp;quot;HardDiskSizeGB&amp;quot;; e={(Get-HardDisk -VM $_ | Measure-Object -Sum CapacityGB).Sum}}, `
-   @{n=&amp;quot;Datastore&amp;quot;; e={(Get-Datastore ibm* -VM $_).name}}, Notes `
-   | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Tak przygotowany plik można zaimportować do Excel&amp;rsquo;a lub OpenOffcie Calc .&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Autor zdjęcia Arthur Caranta, Datacenter @ Night&lt;/em&gt;&lt;/p&gt;</description>
-    </item>
+    <atom:link href="http://jupiter.098.pl/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Historie z wiersza poleceń</title>
