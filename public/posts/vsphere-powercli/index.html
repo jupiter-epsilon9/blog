@@ -213,7 +213,25 @@ Get-VM | Select-Object Name, MemoryGB, NumCpu, `
    | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
 </code></pre>
 
-<p>Tak przygotowany plik można zaimportować do Excel&rsquo;a lub OpenOffcie Calc .</p>
+<p>Tak przygotowany plik można zaimportować do Excel&rsquo;a lub OpenOffcie Calc uzyskując raport, którego nie ma możliwości wyeksportować z żadnego widoku konsoli vSphere. Pomyślmy jak przydatny może on być w sytuacji gdy mamy kilkadziesiat/kilkaset maszyn wirtualnych i chcemy przedstawić wybrane dane osobie z zewnątrz.</p>
+
+
+<figure >
+    
+        <img src="../historie-z-wiersza-polecen-powercli1.png" alt="Raport zaimportowano do OpenOffcie Calc a następnie użyto podsumowań i autoformatowanie tabeli, wynik w 5 minut." />
+    
+    
+    <figcaption>
+        <p>
+        Raport zaimportowano do OpenOffcie Calc a następnie użyto podsumowań i autoformatowanie tabeli, wynik w 5 minut.
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
 
 <p><em>Autor zdjęcia Arthur Caranta, Datacenter @ Night</em></p>
 	
