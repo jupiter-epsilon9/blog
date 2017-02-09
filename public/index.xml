@@ -80,7 +80,9 @@ Get-VM | Select-Object Name, MemoryGB, NumCpu, `
       <pubDate>Sun, 01 Dec 2013 11:12:02 +0100</pubDate>
       
       <guid>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</guid>
-      <description>
+      <description>&lt;p&gt;Polecenia, które mogą się przydać.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;mysql-utworzenie-bazy-danych-oraz-użytkownika-i-przyznanie-zestawu-uprawnień&#34;&gt;Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień&lt;/h2&gt;
 
@@ -141,8 +143,7 @@ RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 &lt;p&gt;Wyczyszczenie rozmowy&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;shred out
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>

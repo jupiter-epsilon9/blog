@@ -6,6 +6,9 @@ date = "2013-12-01T11:12:02+01:00"
 
 +++
 
+Polecenia, które mogą się przydać.
+
+<!--more-->
 ## Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień
 
 ~~~
