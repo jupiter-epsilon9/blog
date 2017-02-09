@@ -20,7 +20,7 @@
 <meta property="og:description" content="Rozwiązania problemów, jakie napotkałem podczas użytkowania serwera Squid" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="/posts/dostrajanie-serwera-squid/" />
+<meta property="og:url" content="http://jupiter.098.pl/posts/dostrajanie-serwera-squid/" />
 
 
   
@@ -32,7 +32,7 @@
   
   
 
-  <link rel="stylesheet" href="/css/redlounge.css">
+  <link rel="stylesheet" href="http://jupiter.098.pl//css/redlounge.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
@@ -72,7 +72,7 @@
     
 
 	
-	  <img src="static/sidebarphoto.png" class="sidebarphoto">
+	  <img src="/static/img/sidebarphoto.png" class="sidebarphoto">
 	
 
     <h1 class="brand-title">Blog Jupitera</h1>
@@ -80,7 +80,7 @@
 
     <nav class="nav">
       <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="">Home</a></li>
+        <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://jupiter.098.pl/">Home</a></li>
         
           <li class="nav-item"><span class="nav-item-separator">//</span><a href="/posts">Blog</a></li>
         
@@ -122,11 +122,12 @@
 <ul>
 <li><a href="#komunikat-possible-syn-flooding">Komunikat &ldquo;possible SYN flooding&rdquo;</a></li>
 <li><a href="#błędy-page-allocation-failure">Błędy &ldquo;Page Allocation Failure&rdquo;</a></li>
-<li><a href="#komunikat-protocol-not-available-w-cache-log">Komunikat &ldquo;Protocol not available&rdquo; w cache.log</a></li>
+<li><a href="#komunikat-protocol-not-available-w-cache-log-squid-a">Komunikat &ldquo;Protocol not available&rdquo; w cache.log Squid&rsquo;a</a></li>
 <li><a href="#komunikat-nf-conntrack-table-full-dropping-packet">Komunikat nf_conntrack: table full, dropping packet</a></li>
 <li><a href="#zbyt-mała-ilość-deskryptorów">Zbyt mała ilość deskryptorów</a></li>
 <li><a href="#ostrzeżenie-disk-space-over-limit">Ostrzeżenie &ldquo;Disk space over limit&rdquo;</a></li>
 <li><a href="#wszystkie-sockety-zostały-zużyte">Wszystkie sockety zostały zużyte</a></li>
+<li><a href="#ustawienia-tcp-keepalive">Ustawienia TCP_KEEPALIVE</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -153,9 +154,9 @@
 			
 				<div class="post-categories">
 				
-					<a class="post-category post-category-informatyka" href="/categories/informatyka">Informatyka</a>
+					<a class="post-category post-category-informatyka" href="http://jupiter.098.pl//categories/informatyka">Informatyka</a>
 				
-					<a class="post-category post-category-administracja" href="/categories/administracja">Administracja</a>
+					<a class="post-category post-category-administracja" href="http://jupiter.098.pl//categories/administracja">Administracja</a>
 				
 				</div>
 			
@@ -173,12 +174,10 @@ Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.</p>
 
 <p><em>kernel: possible SYN flooding on port 3128. Sending cookies.</em></p>
 
-<p>Rozwiążane przez zwiększenie tcp_max_syn_backlog</p>
+<p>Wiadomość pojawia się, gdy kolejka <em>SYN backlog</em> jest pełna. Jeżeli nie jest to atak <em>SYN flood</em>, tylko na serwerze jest duży ruch, to należy zwiększyć tcp_max_syn_backlog.</p>
 
 <pre><code>[root@proxy ~]# cat /proc/sys/net/ipv4/tcp_max_syn_backlog
 262144
-[root@proxy ~]# cat /proc/sys/net/core/somaxconn
-4096
 </code></pre>
 
 <h2 id="błędy-page-allocation-failure">Błędy &ldquo;Page Allocation Failure&rdquo;</h2>
@@ -188,7 +187,6 @@ Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.</p>
 <p>Rozwiązane poprzez zwiększenie parametru min_free_kbytes</p>
 
 <pre><code>[root@proxy ~]# echo 540732 &gt; /proc/sys/vm/min_free_kbytes
-[root@proxy ~]# cat /proc/sys/vm/min_free_kbytes
 </code></pre>
 
 <blockquote>
@@ -210,70 +208,32 @@ number, the less errors you will see, but it will also decrease the memory avail
 applications).</p>
 </blockquote>
 
-<h2 id="komunikat-protocol-not-available-w-cache-log">Komunikat &ldquo;Protocol not available&rdquo; w cache.log</h2>
+<h2 id="komunikat-protocol-not-available-w-cache-log-squid-a">Komunikat &ldquo;Protocol not available&rdquo; w cache.log Squid&rsquo;a</h2>
 
 <p><em>/var/log/squid/cache.log</em></p>
 
 <pre><code>2011/01/04 11:03:38| IpIntercept.cc(137) NetfilterInterception: NF getsockopt(SO_ORIGINAL_DST) failed&quot; on FD 12: (92) Protocol not available
 </code></pre>
 
-<p>Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID.</p>
-
-<p><a href="http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html">http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html</a></p>
-
-<p>Dla pełnego bezpieczeństwa polecają squid oraz nat na tym samym hoscie</p>
-
-<p>Załadowanie modułu śledzącego połączenia rozwiązuje problem</p>
+<p>Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID. Poleca się instalować squid oraz NAT na tym samym hoscie. Załadowanie modułu śledzącego połączenia rozwiązało problem i komunikat zniknął.</p>
 
 <pre><code>modprobe ip_conntrack
 </code></pre>
-
-<p>Wygląda na to że dopiero po załadowaniu modułu ip_conntrack Squid rozumie skąd dostaje połączenia.</p>
 
 <h2 id="komunikat-nf-conntrack-table-full-dropping-packet">Komunikat nf_conntrack: table full, dropping packet</h2>
 
 <p><em>nf_conntrack: table full, dropping packet</em></p>
 
-<pre><code>root@proxy ~]# echo 131072 &gt; /proc/sys/net/nf_conntrack_max
-[root@proxy ~]#  cat /proc/sys/net/netfilter/nf_conntrack_max
-131072
-</code></pre>
-
-<p>Należy też stuningować inne parametry takie jak zbyt duże domyślne czasy timeout</p>
-
-<p><a href="http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/">http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/</a></p>
-
-<pre><code>[root@proxy ~]# sysctl -a | grep conntrack | grep timeout
-net.netfilter.nf_conntrack_generic_timeout = 600
-net.netfilter.nf_conntrack_frag6_timeout = 60
-net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 120
-net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 60
-net.netfilter.nf_conntrack_tcp_timeout_established = 432000
-net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
-net.netfilter.nf_conntrack_tcp_timeout_last_ack = 30
-net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close = 10
-net.netfilter.nf_conntrack_tcp_timeout_max_retrans = 300
-net.netfilter.nf_conntrack_tcp_timeout_unacknowledged = 300
-net.netfilter.nf_conntrack_udp_timeout = 30
-net.netfilter.nf_conntrack_udp_timeout_stream = 180
-net.netfilter.nf_conntrack_icmpv6_timeout = 30
-net.netfilter.nf_conntrack_icmp_timeout = 30
-net.netfilter.nf_conntrack_events_retry_timeout = 15
-
-echo 240 &gt;  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
-echo 108000 &gt;  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
+<pre><code>[root@proxy ~]# echo 131072 &gt; /proc/sys/net/nf_conntrack_max
+[root@proxy ~]# echo 240 &gt;  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
+[root@proxy ~]# echo 108000 &gt;  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
 </code></pre>
 
 <h2 id="zbyt-mała-ilość-deskryptorów">Zbyt mała ilość deskryptorów</h2>
 
 <p><em>WARNING! Your cache is running out of filedescriptors</em></p>
 
-<p>Należy ustawić deskryptory w systemie i w Squid</p>
-
-<p>Rozwiązane poprzez:
-<a href="http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/">http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/</a></p>
+<p>Należy zwiększyć ilość deskryptorów w systemie i w Squid&rsquo;zie:</p>
 
 <pre><code>vi /etc/security/limits.conf
 
@@ -291,14 +251,14 @@ max_filedesc 24567
 
 <h2 id="ostrzeżenie-disk-space-over-limit">Ostrzeżenie &ldquo;Disk space over limit&rdquo;</h2>
 
-<p>W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość</p>
+<p>W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość.</p>
 
 <p><em>WARNING: Disk space over limit: 16777424 KB &gt; 16777216 KB</em></p>
 
-<p><a href="http://bugs.contribs.org/show_bug.cgi?id=664">http://bugs.contribs.org/show_bug.cgi?id=664</a>
+<p><a href="http://bugs.contribs.org/show_bug.cgi?id=664">http://bugs.contribs.org/show_bug.cgi?id=664</a> <br>
 <a href="http://bugs.contribs.org/show_bug.cgi?id=664#c3">http://bugs.contribs.org/show_bug.cgi?id=664#c3</a></p>
 
-<p>Komunikat oznacza, że rozmiar cache jest większy odustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.</p>
+<p>Komunikat oznacza, że rozmiar cache jest większy od ustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.</p>
 
 <p>Problem można rozwiązać np poprzez zwiększenie pojemności cache</p>
 
@@ -308,16 +268,16 @@ cache_dir aufs /cache 32768 32 512
 
 <h2 id="wszystkie-sockety-zostały-zużyte">Wszystkie sockety zostały zużyte</h2>
 
-<p>*CommBind: Cannot bind socket FD 98 to <em>:0: (98) Address already in use</em></p>
+<p><em>CommBind: Cannot bind socket FD 98 to *:0: (98) Address already in use</em></p>
 
-<p><a href="http://www.tigase.org/content/linux-settings-high-load-systems">http://www.tigase.org/content/linux-settings-high-load-systems</a></p>
+<p>Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000</p>
 
-<p>Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000
-net.ipv4.ip_local_port_range=1024 65000
-Ustawienia TCP_KEEPALIVE</p>
+<pre><code>net.ipv4.ip_local_port_range=1024 65000
+</code></pre>
 
-<p><a href="http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0">http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0</a>
-<a href="http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html">http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html</a></p>
+<h2 id="ustawienia-tcp-keepalive">Ustawienia TCP_KEEPALIVE</h2>
+
+<p><a href="http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html">http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html</a></p>
 
 <pre><code>echo 60 &gt; /proc/sys/net/ipv4/tcp_keepalive_time
 echo 3 &gt; /proc/sys/net/ipv4/tcp_keepalive_probes
@@ -341,9 +301,9 @@ net.ipv4.tcp_keepalive_intvl = 50
 				<div class="tags-list">
 					<span class="dark-red">Tags</span><span class="decorative-marker">//</span>
 					
-	                <a class="post-tag post-tag-squid" href="/tags/squid">squid</a>,
+	                <a class="post-tag post-tag-squid" href="http://jupiter.098.pl//tags/squid">squid</a>,
 	                
-	                <a class="post-tag post-tag-proxy" href="/tags/proxy">proxy</a>,
+	                <a class="post-tag post-tag-proxy" href="http://jupiter.098.pl//tags/proxy">proxy</a>,
 	                
 				</div>
 			
@@ -354,7 +314,7 @@ net.ipv4.tcp_keepalive_intvl = 50
 					
 					<div class="paging-newer">
 						<span class="dark-red">Newer</span><span class="decorative-marker">//</span>
-						<a class="paging-link" href="/posts/vsphere-powercli/">Serwer vSphere i PowerCLI</a>
+						<a class="paging-link" href="/posts/historie-z-wiersza-polecen/">Historie z wiersza poleceń</a>
 		            </div>
 		            
 
@@ -374,7 +334,7 @@ net.ipv4.tcp_keepalive_intvl = 50
 		</ul>
 	</div>
 
-	<p>&copy; 2016. All rights reserved.</p>
+	<p>&copy; 2017. All rights reserved.</p>
 </div>
     </div>
   </div>

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts-rsses on Blog Jupitera</title>
-    <link>/posts/index.xml</link>
+    <link>http://jupiter.098.pl/posts/index.xml</link>
     <description>Recent content in Posts-rsses on Blog Jupitera</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
     <lastBuildDate>Wed, 30 Nov 2016 09:54:32 +0100</lastBuildDate>
-    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://jupiter.098.pl/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Serwer vSphere i PowerCLI</title>
-      <link>/posts/vsphere-powercli/</link>
+      <link>http://jupiter.098.pl/posts/vsphere-powercli/</link>
       <pubDate>Wed, 30 Nov 2016 09:54:32 +0100</pubDate>
       
-      <guid>/posts/vsphere-powercli/</guid>
+      <guid>http://jupiter.098.pl/posts/vsphere-powercli/</guid>
       <description>&lt;p&gt;Czasami szybciej jest posłuzyć się konsolą tekstową niż środowiskiem graficznym. Wiedzą to wszyscy użytkownicy Linuxa. Komercyjny vSphere również posiada taką możliwość za pośrednictwem PowerCLI - interfejsu do PowerShell&amp;rsquo;a.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -69,15 +69,79 @@ Get-VM | Select-Object Name, MemoryGB, NumCpu, `
    | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;Tak przygotowany plik można zaimportować do Excel&amp;rsquo;a lub OpenOffcie Calc .&lt;/p&gt;
+
 &lt;p&gt;&lt;em&gt;Autor zdjęcia Arthur Caranta, Datacenter @ Night&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
+      <title>Historie z wiersza poleceń</title>
+      <link>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</link>
+      <pubDate>Sun, 01 Dec 2013 11:12:02 +0100</pubDate>
+      
+      <guid>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</guid>
+      <description>
+
+&lt;h2 id=&#34;mysql-utworzenie-bazy-danych-oraz-użytkownika-i-przyznanie-zestawu-uprawnień&#34;&gt;Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień&lt;/h2&gt;
+
+&lt;p&gt;CREATE DATABASE surreal_todo ;
+CREATE USER &amp;lsquo;surreal_todo&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo; IDENTIFIED BY &amp;lsquo;haslo123&amp;rsquo;;
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE ON surreal_todo.* TO &amp;lsquo;surreal_todo&amp;rsquo;@&amp;lsquo;localhost&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;nadanie dostępu z innego hosta. Mysql musi nasłuchiwać na odpowiednim interfejsie&lt;/em&gt;
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON do.* to &amp;lsquo;do&amp;rsquo;@&amp;lsquo;172.20.4.135&amp;rsquo; IDENTIFIED BY &amp;lsquo;haslo123&amp;rsquo;;&lt;/p&gt;
+
+&lt;h2 id=&#34;solaris-wyświetlenie-wolnej-przestrzeni-dyskowej-na-partycjach-w-gb-filesystem-punkt-montowania-rozmiar-w-gb&#34;&gt;Solaris - Wyświetlenie wolnej przestrzeni dyskowej na partycjach - w GB. Filesystem / punkt montowania / rozmiar w GB&lt;/h2&gt;
+
+&lt;p&gt;df -k | awk &amp;lsquo;{used=$3/(1024*1024) ; print $6&amp;rdquo;;&amp;ldquo;$1&amp;rdquo;;&amp;ldquo;used}&amp;rsquo;       # oddzielone średnikami jak w csv
+df -k | awk &amp;lsquo;{used=$3/(1024*1024) ; print $6&amp;rdquo;\t\t&amp;rdquo;$1&amp;rdquo;\t\t&amp;rdquo;used}&amp;rsquo; # oddzielone tabulatorami&lt;/p&gt;
+
+&lt;h2 id=&#34;przekopiowanie-plików-z-wykorzystaniem-tar-i-scp&#34;&gt;Przekopiowanie plików z wykorzystaniem tar i scp&lt;/h2&gt;
+
+&lt;p&gt;tar -czPf -  /var/log/squid/ | ssh 172.20.4.44 &amp;ldquo;cat | tar -xzvPf -&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;Zachowuje prawa dostępu i uzytkowników. Zachowuje ścieżki (parametr p) dzięki czemu pliki wylądują w tej samej lokalizacji z której były tar&amp;rsquo;owane. Pliki są kompresowane a następnie przesyłane w jednym archiwum tar, co przyspiesza kopiowanie w sytuacji w której mamy do czynienia z dużą ilością małych plików.&lt;/p&gt;
+
+&lt;h2 id=&#34;wylistowanie-aplikaci-wraz-z-portami-na-których-nasłuchują&#34;&gt;Wylistowanie aplikaci wraz z portami, na których nasłuchują&lt;/h2&gt;
+
+&lt;p&gt;netstat -tulpn&lt;/p&gt;
+
+&lt;h2 id=&#34;apache&#34;&gt;Apache&lt;/h2&gt;
+
+&lt;h3 id=&#34;polecenie-wyodrębnia-z-dziennika-serwera-www-adres-ip-który-więcej-niż-500-razy-odnotował-swoją-aktywność&#34;&gt;Polecenie wyodrębnia z dziennika serwera WWW adres IP, który więcej niż 500 razy odnotował swoją aktywność&lt;/h3&gt;
+
+&lt;p&gt;Usunąć spację pomiędzy [ [ i ] ]&lt;/p&gt;
+
+&lt;p&gt;for ip in &lt;code&gt;cat access.log | cut -d &#39; &#39; -f 1 | sort | uniq&lt;/code&gt;;  do { count=&lt;code&gt;grep ^$ip access.log | wc -l&lt;/code&gt;;  if [ [ &amp;ldquo;$count&amp;rdquo; -gt &amp;ldquo;500&amp;rdquo; ] ]; then echo &amp;ldquo;$count: $ip&amp;rdquo;; fi }; done&lt;/p&gt;
+
+&lt;h3 id=&#34;przekierowanie-z-http-na-https&#34;&gt;Przekierowanie z http na https&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;RewriteEngine on
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;prosty-czat-na-konsoli&#34;&gt;Prosty czat na konsoli&lt;/h2&gt;
+
+&lt;p&gt;Okno do wpisywania komunikatów. Każdy użytkownik uruchamia poniższy skrypt
+user=&amp;ldquo;Jan&amp;rdquo;;while true; do read msg; date=&lt;code&gt;date +&amp;quot;%T&amp;quot;&lt;/code&gt;; echo &amp;ldquo;[$date] $user: $msg&amp;rdquo; &amp;gt;&amp;gt; out; done&lt;/p&gt;
+
+&lt;p&gt;Okno odbierania&lt;/p&gt;
+
+&lt;p&gt;tail -f out&lt;/p&gt;
+
+&lt;p&gt;Wyczyszczenie rozmowy&lt;/p&gt;
+
+&lt;p&gt;shred out&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Dostrajanie serwera squid</title>
-      <link>/posts/dostrajanie-serwera-squid/</link>
+      <link>http://jupiter.098.pl/posts/dostrajanie-serwera-squid/</link>
       <pubDate>Wed, 03 Apr 2013 11:35:47 +0100</pubDate>
       
-      <guid>/posts/dostrajanie-serwera-squid/</guid>
+      <guid>http://jupiter.098.pl/posts/dostrajanie-serwera-squid/</guid>
       <description>&lt;p&gt;Moje przygody z serwerem Squid i rozwiązania problemów, jakie napotkałem podczas jego użytkowania.
 Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.&lt;/p&gt;
 
@@ -87,12 +151,10 @@ Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;kernel: possible SYN flooding on port 3128. Sending cookies.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Rozwiążane przez zwiększenie tcp_max_syn_backlog&lt;/p&gt;
+&lt;p&gt;Wiadomość pojawia się, gdy kolejka &lt;em&gt;SYN backlog&lt;/em&gt; jest pełna. Jeżeli nie jest to atak &lt;em&gt;SYN flood&lt;/em&gt;, tylko na serwerze jest duży ruch, to należy zwiększyć tcp_max_syn_backlog.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[root@proxy ~]# cat /proc/sys/net/ipv4/tcp_max_syn_backlog
 262144
-[root@proxy ~]# cat /proc/sys/net/core/somaxconn
-4096
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;błędy-page-allocation-failure&#34;&gt;Błędy &amp;ldquo;Page Allocation Failure&amp;rdquo;&lt;/h2&gt;
@@ -102,7 +164,6 @@ Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.&lt;/p&gt;
 &lt;p&gt;Rozwiązane poprzez zwiększenie parametru min_free_kbytes&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[root@proxy ~]# echo 540732 &amp;gt; /proc/sys/vm/min_free_kbytes
-[root@proxy ~]# cat /proc/sys/vm/min_free_kbytes
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;blockquote&gt;
@@ -124,70 +185,32 @@ number, the less errors you will see, but it will also decrease the memory avail
 applications).&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&#34;komunikat-protocol-not-available-w-cache-log&#34;&gt;Komunikat &amp;ldquo;Protocol not available&amp;rdquo; w cache.log&lt;/h2&gt;
+&lt;h2 id=&#34;komunikat-protocol-not-available-w-cache-log-squid-a&#34;&gt;Komunikat &amp;ldquo;Protocol not available&amp;rdquo; w cache.log Squid&amp;rsquo;a&lt;/h2&gt;
 
 &lt;p&gt;&lt;em&gt;/var/log/squid/cache.log&lt;/em&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;2011/01/04 11:03:38| IpIntercept.cc(137) NetfilterInterception: NF getsockopt(SO_ORIGINAL_DST) failed&amp;quot; on FD 12: (92) Protocol not available
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html&#34;&gt;http://readlist.com/lists/squid-cache.org/squid-users/8/41390.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Dla pełnego bezpieczeństwa polecają squid oraz nat na tym samym hoscie&lt;/p&gt;
-
-&lt;p&gt;Załadowanie modułu śledzącego połączenia rozwiązuje problem&lt;/p&gt;
+&lt;p&gt;Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID. Poleca się instalować squid oraz NAT na tym samym hoscie. Załadowanie modułu śledzącego połączenia rozwiązało problem i komunikat zniknął.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;modprobe ip_conntrack
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Wygląda na to że dopiero po załadowaniu modułu ip_conntrack Squid rozumie skąd dostaje połączenia.&lt;/p&gt;
 
 &lt;h2 id=&#34;komunikat-nf-conntrack-table-full-dropping-packet&#34;&gt;Komunikat nf_conntrack: table full, dropping packet&lt;/h2&gt;
 
 &lt;p&gt;&lt;em&gt;nf_conntrack: table full, dropping packet&lt;/em&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;root@proxy ~]# echo 131072 &amp;gt; /proc/sys/net/nf_conntrack_max
-[root@proxy ~]#  cat /proc/sys/net/netfilter/nf_conntrack_max
-131072
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Należy też stuningować inne parametry takie jak zbyt duże domyślne czasy timeout&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/&#34;&gt;http://pc-freak.net/blog/resolving-nf_conntrack-table-full-dropping-packet-flood-message-in-dmesg-linux-kernel-log/&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[root@proxy ~]# sysctl -a | grep conntrack | grep timeout
-net.netfilter.nf_conntrack_generic_timeout = 600
-net.netfilter.nf_conntrack_frag6_timeout = 60
-net.netfilter.nf_conntrack_tcp_timeout_syn_sent = 120
-net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 60
-net.netfilter.nf_conntrack_tcp_timeout_established = 432000
-net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
-net.netfilter.nf_conntrack_tcp_timeout_last_ack = 30
-net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close = 10
-net.netfilter.nf_conntrack_tcp_timeout_max_retrans = 300
-net.netfilter.nf_conntrack_tcp_timeout_unacknowledged = 300
-net.netfilter.nf_conntrack_udp_timeout = 30
-net.netfilter.nf_conntrack_udp_timeout_stream = 180
-net.netfilter.nf_conntrack_icmpv6_timeout = 30
-net.netfilter.nf_conntrack_icmp_timeout = 30
-net.netfilter.nf_conntrack_events_retry_timeout = 15
-
-echo 240 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
-echo 108000 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
+&lt;pre&gt;&lt;code&gt;[root@proxy ~]# echo 131072 &amp;gt; /proc/sys/net/nf_conntrack_max
+[root@proxy ~]# echo 240 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_generic_timeout
+[root@proxy ~]# echo 108000 &amp;gt;  /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;zbyt-mała-ilość-deskryptorów&#34;&gt;Zbyt mała ilość deskryptorów&lt;/h2&gt;
 
 &lt;p&gt;&lt;em&gt;WARNING! Your cache is running out of filedescriptors&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Należy ustawić deskryptory w systemie i w Squid&lt;/p&gt;
-
-&lt;p&gt;Rozwiązane poprzez:
-&lt;a href=&#34;http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/&#34;&gt;http://www.cyberciti.biz/faq/squid-proxy-server-running-out-filedescriptors/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Należy zwiększyć ilość deskryptorów w systemie i w Squid&amp;rsquo;zie:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;vi /etc/security/limits.conf
 
@@ -205,14 +228,14 @@ max_filedesc 24567
 
 &lt;h2 id=&#34;ostrzeżenie-disk-space-over-limit&#34;&gt;Ostrzeżenie &amp;ldquo;Disk space over limit&amp;rdquo;&lt;/h2&gt;
 
-&lt;p&gt;W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość&lt;/p&gt;
+&lt;p&gt;W logach pojawił się komunikat świadczący o tym, że cache squida jest większe niż przydzielona wielkość.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;WARNING: Disk space over limit: 16777424 KB &amp;gt; 16777216 KB&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://bugs.contribs.org/show_bug.cgi?id=664&#34;&gt;http://bugs.contribs.org/show_bug.cgi?id=664&lt;/a&gt;
+&lt;p&gt;&lt;a href=&#34;http://bugs.contribs.org/show_bug.cgi?id=664&#34;&gt;http://bugs.contribs.org/show_bug.cgi?id=664&lt;/a&gt; &lt;br&gt;
 &lt;a href=&#34;http://bugs.contribs.org/show_bug.cgi?id=664#c3&#34;&gt;http://bugs.contribs.org/show_bug.cgi?id=664#c3&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Komunikat oznacza, że rozmiar cache jest większy odustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.&lt;/p&gt;
+&lt;p&gt;Komunikat oznacza, że rozmiar cache jest większy od ustawionego w konfiguracji. Być może na skutek nieprawidłowego zamknięcia Squid nie ma w bazie informacji o wszystkich plikach, które są w cache.&lt;/p&gt;
 
 &lt;p&gt;Problem można rozwiązać np poprzez zwiększenie pojemności cache&lt;/p&gt;
 
@@ -222,16 +245,16 @@ cache_dir aufs /cache 32768 32 512
 
 &lt;h2 id=&#34;wszystkie-sockety-zostały-zużyte&#34;&gt;Wszystkie sockety zostały zużyte&lt;/h2&gt;
 
-&lt;p&gt;*CommBind: Cannot bind socket FD 98 to &lt;em&gt;:0: (98) Address already in use&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;CommBind: Cannot bind socket FD 98 to *:0: (98) Address already in use&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://www.tigase.org/content/linux-settings-high-load-systems&#34;&gt;http://www.tigase.org/content/linux-settings-high-load-systems&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000&lt;/p&gt;
 
-&lt;p&gt;Należy zwiększyć zakres dostępnych portów. Od 1024 do 65000
-net.ipv4.ip_local_port_range=1024 65000
-Ustawienia TCP_KEEPALIVE&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;net.ipv4.ip_local_port_range=1024 65000
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0&#34;&gt;http://blog.kolargol.eu/2006/06/tcpkeepalive.html?m=0&lt;/a&gt;
-&lt;a href=&#34;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&#34;&gt;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ustawienia-tcp-keepalive&#34;&gt;Ustawienia TCP_KEEPALIVE&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&#34;&gt;http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/usingkeepalive.html&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;echo 60 &amp;gt; /proc/sys/net/ipv4/tcp_keepalive_time
 echo 3 &amp;gt; /proc/sys/net/ipv4/tcp_keepalive_probes

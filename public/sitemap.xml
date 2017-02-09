@@ -2,17 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/</loc>
+    <loc>http://jupiter.098.pl/</loc>
     <lastmod>2016-11-30T09:54:32+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/vsphere-powercli/</loc>
+    <loc>http://jupiter.098.pl/posts/vsphere-powercli/</loc>
     <lastmod>2016-11-30T09:54:32+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/dostrajanie-serwera-squid/</loc>
+    <loc>http://jupiter.098.pl/posts/historie-z-wiersza-polecen/</loc>
+    <lastmod>2013-12-01T11:12:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jupiter.098.pl/posts/dostrajanie-serwera-squid/</loc>
     <lastmod>2013-04-03T11:35:47+01:00</lastmod>
   </url>
   

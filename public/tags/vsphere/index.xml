@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog Jupitera</title>
-    <link>/tags/vsphere/index.xml</link>
+    <link>http://jupiter.098.pl/tags/vsphere/index.xml</link>
     <description>Recent content on Blog Jupitera</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <atom:link href="/tags/vsphere/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://jupiter.098.pl/tags/vsphere/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Serwer vSphere i PowerCLI</title>
-      <link>/posts/vsphere-powercli/</link>
+      <link>http://jupiter.098.pl/posts/vsphere-powercli/</link>
       <pubDate>Wed, 30 Nov 2016 09:54:32 +0100</pubDate>
       
-      <guid>/posts/vsphere-powercli/</guid>
+      <guid>http://jupiter.098.pl/posts/vsphere-powercli/</guid>
       <description>&lt;p&gt;Czasami szybciej jest posłuzyć się konsolą tekstową niż środowiskiem graficznym. Wiedzą to wszyscy użytkownicy Linuxa. Komercyjny vSphere również posiada taką możliwość za pośrednictwem PowerCLI - interfejsu do PowerShell&amp;rsquo;a.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;
@@ -67,6 +67,8 @@ Get-VM | Select-Object Name, MemoryGB, NumCpu, `
    @{n=&amp;quot;Datastore&amp;quot;; e={(Get-Datastore ibm* -VM $_).name}}, Notes `
    | Export-Csv  -Encoding UTF8 -NoTypeInformation -UseCulture $CSV
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Tak przygotowany plik można zaimportować do Excel&amp;rsquo;a lub OpenOffcie Calc .&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Autor zdjęcia Arthur Caranta, Datacenter @ Night&lt;/em&gt;&lt;/p&gt;</description>
     </item>
