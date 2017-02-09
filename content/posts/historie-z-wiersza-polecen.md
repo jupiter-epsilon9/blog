@@ -3,7 +3,7 @@ title = "Historie z wiersza poleceń"
 description = "Wiersz poleceń - nie tylko bash"
 draft = false
 date = "2013-12-01T11:12:02+01:00"
-tags = [ "linux", "bash", "vsphere", "solaris" ]
+tags = [ "linux", "bash", "vsphere", "solaris", "mod_rewrite" ]
 Categories = [ "Informatyka", "Administracja" ]
 banner = "../dostrajanie-serwera-squid.jpg"
 +++
