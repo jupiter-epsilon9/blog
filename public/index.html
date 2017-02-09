@@ -171,9 +171,8 @@
             </p>
             
               <article class="post-summary">
-                  Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień CREATE DATABASE surreal_todo ; CREATE USER &lsquo;surreal_todo&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;haslo123&rsquo;; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE ON surreal_todo.* TO &lsquo;surreal_todo&rsquo;@&lsquo;localhost&rsquo;;
-nadanie dostępu z innego hosta. Mysql musi nasłuchiwać na odpowiednim interfejsie GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON do.* to &lsquo;do&rsquo;@&lsquo;172.20.4.135&rsquo; IDENTIFIED BY &lsquo;haslo123&rsquo;;
-Solaris - Wyświetlenie wolnej przestrzeni dyskowej na partycjach - w GB. Filesystem / punkt montowania / rozmiar w GB df -k | awk &lsquo;{used=$3/(1024*1024) ; print $6&rdquo;;&ldquo;$1&rdquo;;&ldquo;used}&rsquo; # oddzielone średnikami jak w csv df -k | awk &lsquo;{used=$3/(1024*1024) ; print $6&rdquo;\t\t&rdquo;$1&rdquo;\t\t&rdquo;used}&rsquo; # oddzielone tabulatorami
+                  Mysql - Utworzenie bazy danych oraz użytkownika i przyznanie zestawu uprawnień CREATE DATABASE surreal_todo ; CREATE USER 'surreal_todo'@'localhost' IDENTIFIED BY 'haslo123'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE ON surreal_todo.* TO 'surreal_todo'@'localhost';  nadanie dostępu z innego hosta. Mysql musi nasłuchiwać na odpowiednim interfejsie
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON do.* to 'do'@'172.20.4.135' IDENTIFIED BY 'haslo123';  Solaris - Wyświetlenie wolnej przestrzeni dyskowej na partycjach - w GB. Filesystem / punkt montowania / rozmiar w GB df -k | awk '{used=$3/(1024*1024) ; print $6&quot;;&quot;$1&quot;;&quot;used}' # oddzielone średnikami jak w csv df -k | awk '{used=$3/(1024*1024) ; print $6&quot;\t\t&quot;$1&quot;\t\t&quot;used}' # oddzielone tabulatorami  Przekopiowanie plików z wykorzystaniem tar i scp tar -czPf - /var/log/squid/ | ssh 172.
               </article>
               <div class="read-more-link">
                   <a href="/posts/historie-z-wiersza-polecen/"><span class="read-more-slashes">//</span>Read More...</a>
