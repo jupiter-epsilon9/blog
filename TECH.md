@@ -10,3 +10,8 @@ Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 8080
 
 ### Build
 hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
+
+### add, commit, push
+git add . --all
+git commit -m "fix"
+git push
