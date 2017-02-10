@@ -15,7 +15,7 @@ Czasami szybciej jest posłuzyć się konsolą tekstową niż środowiskiem graf
 <!--more-->
 ## Przykładowe polecenia:
 
-Nawiązanie sesji z vSphere:
+Nawiązanie sesji z vSphere:{.callout}
 ~~~
 Connect-VIServer 10.0.0.10
 ~~~
