@@ -26,7 +26,7 @@ git ftp push --syncroot public
 # Konfiguracja GITa
 ## konfiguraca repo na GitHUB
 ```
-git config --global credential.helper store
+git config --global credential.helper wincred
 git config --global credential.helper 'cache --timeout 7200'
 git push https://github.com/repo.git
 
