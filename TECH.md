@@ -6,7 +6,7 @@ git ftp push -vv --syncroot public --user ***** --passwd ****** ftpes://******/p
 ## Hugo 
 
 ### Serwer
-Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 8080
+Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 80
 
 ### Build
 hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
