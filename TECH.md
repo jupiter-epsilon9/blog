@@ -2,7 +2,7 @@
 Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 80
 
 
-### build, add, commit, push (works for new and deleted files), push to FTP 
+### Script for build, add, commit, push (works for new and deleted files), push to FTP 
 cat << EOF > zatwierdz.sh
 #!/bin/bash
 hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
