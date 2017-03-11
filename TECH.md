@@ -43,12 +43,23 @@ git config --global core.safecrlf false
 ```
 git clone https://github.com/git-ftp/git-ftp
 chmod +x git-ftp/git-ftp
-cp git-ftp/git-ftp /usr/bin/
+cp git-ftp/git-ftp /bin
+```
 
+Zapisanie url, login i haseł na stałe (uwaga, zapisane czystym tekstem w repozytorium Git!
+```
 git config git-ftp.url ftpes://ftp.example.net/public_html
 git config git-ftp.user ftp-user
 git config git-ftp.password secr3t
+```
 
+Podanie poświadczeń z linii poleceń bez zapisywania
+```
+git ftp push --syncroot public --user #### --passwd #### ftp://####/public_html
+```
+
+Inicjalizacja (dodać --user, --passwd i url jeżeli nie zapisane)
+```
 git ftp init 
 ```
 
