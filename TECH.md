@@ -23,7 +23,17 @@ chmod +x zatwierdz.sh
 git ftp push --syncroot public 
 ```
 
-# Konfiguracja GIT'a
+# Konfiguracja GITa
+## konfiguraca repo na GitHUB
+```
+git config --global credential.helper store
+git config --global credential.helper 'cache --timeout 7200'
+git push https://github.com/repo.git
+
+Username for 'https://github.com': <USERNAME>
+Password for 'https://USERNAME@github.com': <PASSWORD>
+```
+
 ## wyłączenie warningów CRLF
 ```
 git config --global core.safecrlf false 
@@ -39,4 +49,12 @@ git config git-ftp.user ftp-user
 git config git-ftp.password secr3t
 
 git ftp init 
+```
+
+# Przydatne polecenia *git*
+## Informacja o repozytoriach
+```
+git remote -v  
+git remote show -n origin
+git config --get remote.origin.url
 ```
