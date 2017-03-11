@@ -50,9 +50,10 @@ Rozwiązane poprzez zwiększenie parametru min_free_kbytes
 ## Komunikat "Protocol not available" w cache.log Squid'a
 
 */var/log/squid/cache.log*
-~~~
+
+```
 2011/01/04 11:03:38| IpIntercept.cc(137) NetfilterInterception: NF getsockopt(SO_ORIGINAL_DST) failed" on FD 12: (92) Protocol not available
-~~~
+```
 
 Problem pojawia się w przypadku gdy NAT jest na innym hoście niż SQUID. Poleca się instalować squid oraz NAT na tym samym hoscie. Załadowanie modułu śledzącego połączenia rozwiązało problem i komunikat zniknął.
 ~~~
@@ -73,7 +74,7 @@ modprobe ip_conntrack
 
 *WARNING! Your cache is running out of filedescriptors*
 
-Należy zwiększyć ilość deskryptorów w systemie i w Squid'zie:
+Należy **zwiększyć** ilość deskryptorów w systemie i w Squid'zie:
 
 ~~~
 vi /etc/security/limits.conf

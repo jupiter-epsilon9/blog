@@ -154,7 +154,7 @@ applications).&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;WARNING! Your cache is running out of filedescriptors&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Należy zwiększyć ilość deskryptorów w systemie i w Squid&amp;rsquo;zie:&lt;/p&gt;
+&lt;p&gt;Należy &lt;strong&gt;zwiększyć&lt;/strong&gt; ilość deskryptorów w systemie i w Squid&amp;rsquo;zie:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;vi /etc/security/limits.conf
 

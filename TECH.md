@@ -1,7 +1,5 @@
-# Przydatne polecenia
-
 ### Serwer
-Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 8080
+Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 80
 
 
 ### build, add, commit, push (works for new and deleted files), push to FTP 
