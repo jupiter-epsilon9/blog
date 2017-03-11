@@ -3,12 +3,17 @@ Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 80
 
 
 ### build, add, commit, push (works for new and deleted files), push to FTP 
-hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
-git add . --all
-echo -n "Komentarz do zmian > "
-read comment
-git commit -m "$comment"
-git push
+cat << EOF > zatwierdz.sh
+    #!/bin/bash
+	hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
+	git add . --all
+	echo -n "Komentarz do zmian > "
+	read comment
+	git commit -m "$comment"
+	git push
+EOF
+chmod +x zatwierdz.sh
+
 git ftp push -vv --syncroot public --user ###### --passwd ##### ftpes://######/public_html
 
 
