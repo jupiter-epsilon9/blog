@@ -30,7 +30,7 @@ git config --global core.safecrlf false
 ##### Konfiguracja push FTP
 ```
 git clone https://github.com/git-ftp/git-ftp
-cd hmod +x git-ftp/git-ftp
+chmod +x git-ftp/git-ftp
 cp git-ftp/git-ftp /usr/bin/
 
 git config git-ftp.url ftpes://ftp.example.net/public_html
