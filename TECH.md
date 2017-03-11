@@ -23,7 +23,14 @@ git ftp push -vv --syncroot public --user ###### --passwd ##### ftpes://######/p
 ```
 
 ### Konfiguracja GIT'a
-##### wyłączenie warningów CRLF
+#### wyłączenie warningów CRLF
 ```
 git config --global core.safecrlf false 
+```
+##### Konfiguracja push FTP
+```
+git clone https://github.com/git-ftp/git-ftp
+cd git-ftp && chmod +x git-ftp
+cp git-ftp /usr/bin/
+git ftp init --user ##### --passwd ##### ftp://#####/public_html
 ```
