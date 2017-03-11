@@ -12,5 +12,7 @@ git push
 git ftp push -vv --syncroot public --user ###### --passwd ##### ftpes://######/public_html
 
 
-### wyłączenie warningów CRLF
+### Konfiguracja GIT'a
+##### wyłączenie warningów CRLF
 git config core.whitespace cr-at-eol
+ 
