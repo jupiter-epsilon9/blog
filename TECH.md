@@ -1,6 +1,7 @@
 ### Serwer
+```
 Hugo server -t hugo-redlounge --baseUrl=http://localhost -p 80
-
+```
 
 ### Script for build, add, commit, push (works for new and deleted files)
 ```
