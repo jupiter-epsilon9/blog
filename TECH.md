@@ -17,7 +17,7 @@ cat << EOF > zatwierdz.sh
 EOF
 chmod +x zatwierdz.sh
 ```
-
+ 
 # push to FTP
 ``` 
 git ftp push --syncroot public 
