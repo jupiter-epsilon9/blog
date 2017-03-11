@@ -19,7 +19,7 @@ chmod +x zatwierdz.sh
 
 ### push to FTP
 ``` 
-git ftp push -vv --syncroot public --user ###### --passwd ##### ftpes://######/public_html
+git ftp push --syncroot public 
 ```
 
 ### Konfiguracja GIT'a
@@ -30,7 +30,13 @@ git config --global core.safecrlf false
 ##### Konfiguracja push FTP
 ```
 git clone https://github.com/git-ftp/git-ftp
-cd git-ftp && chmod +x git-ftp
-cp git-ftp /usr/bin/
-git ftp init --user ##### --passwd ##### ftp://#####/public_html
+cd hmod +x git-ftp/git-ftp
+cp git-ftp/git-ftp /usr/bin/
+
+git config git-ftp.url ftpes://ftp.example.net/public_html
+git config git-ftp.user ftp-user
+git config git-ftp.password secr3t
+
+
+git ftp init 
 ```
