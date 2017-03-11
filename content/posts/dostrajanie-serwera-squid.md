@@ -10,11 +10,14 @@ banner = "../dostrajanie-serwera-squid.jpg"
 Moje przygody z serwerem Squid i rozwiązania problemów, jakie napotkałem podczas jego użytkowania.
 Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.
 
+
+
 <!--more-->
 ## Komunikat "possible SYN flooding"
 *kernel: possible SYN flooding on port 3128. Sending cookies.*
  
 Wiadomość pojawia się, gdy kolejka *SYN backlog* jest pełna. Jeżeli nie jest to atak *SYN flood*, tylko na serwerze jest duży ruch, to należy zwiększyć tcp_max_syn_backlog.
+ 
 ~~~
 [root@proxy ~]# cat /proc/sys/net/ipv4/tcp_max_syn_backlog
 262144
@@ -137,3 +140,5 @@ net.ipv4.tcp_keepalive_intvl = 50
 ~~~
 
 *obrazek w nagłówku: www.cwcs.co.uk*
+
+
