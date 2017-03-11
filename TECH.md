@@ -9,4 +9,8 @@ hugo -t hugo-redlounge -b "http://jupiter.098.pl/"
 git add . --all
 git commit -m "fix"
 git push
-git ftp push -vv --syncroot public --user ***** --passwd ****** ftpes://******/public_html
+git ftp push -vv --syncroot public --user ###### --passwd ##### ftpes://######/public_html
+
+
+### wyłączenie warningów CRLF
+git config core.whitespace cr-at-eol
