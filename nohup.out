@@ -1,0 +1,20 @@
+2017-03-12 16:40:36.2641|TRACE|MarkdownPad2.Stylesheets.StyleSheetProvider|Style already exists in AppData, skipping: markdown.css
+2017-03-12 16:40:36.2798|TRACE|MarkdownPad2.Stylesheets.StyleSheetProvider|Style already exists in AppData, skipping: markdownpad-github.css
+2017-03-12 16:40:36.2798|TRACE|MarkdownPad2.Stylesheets.StyleSheetProvider|Style already exists in AppData, skipping: none.css
+2017-03-12 16:40:36.2798|TRACE|MarkdownPad2.Stylesheets.StyleSheetProvider|Style already exists in AppData, skipping: solarized-dark.css
+2017-03-12 16:40:36.2798|TRACE|MarkdownPad2.Stylesheets.StyleSheetProvider|Style already exists in AppData, skipping: solarized-light.css
+2017-03-12 16:40:36.8423|TRACE|MarkdownPad2.UserControls.MarkdownEditor|Setting spell check dictionary language: pl-PL
+2017-03-12 16:40:36.8579|TRACE|MarkdownPad2.SpellCheck.SpellingService|Found dictionary files: 11
+2017-03-12 16:40:36.8579|TRACE|MarkdownPad2.SpellCheck.SpellingService|Loading .aff: C:\Program Files (x86)\MarkdownPad 2\SpellCheck\dictionaries\pl_PL.aff and .dic C:\Program Files (x86)\MarkdownPad 2\SpellCheck\dictionaries\pl_PL.dic
+2017-03-12 16:40:37.1801|INFO|MarkdownPad2.SpellCheck.SpellingService|No custom dictionary found at C:\Users\ThinkPad\AppData\Roaming\MarkdownPad 2\dictionaries\custom.pl-PL.dic
+2017-03-12 16:40:37.1957|DEBUG|MarkdownPad2.UserControls.MarkdownEditor|Setting markdown processor to: Markdown
+2017-03-12 16:40:38.6939|TRACE|MarkdownPad2.SpellCheck.SpellingService|Found dictionary files: 11
+2017-03-12 16:40:38.9471|TRACE|MarkdownPad2.UserControls.EditorRenderer|ScrollViewer listener not connected, connecting now
+2017-03-12 16:40:38.9471|TRACE|MarkdownPad2.UserControls.EditorRenderer|Editor loaded (in EditorRenderer)
+2017-03-12 16:40:38.9471|DEBUG|MarkdownPad2.UserControls.MarkdownEditor|MarkdownEditor loaded.
+2017-03-12 16:40:38.9471|TRACE|MarkdownPad2.UserControls.EditorRenderer|Renderer_Loaded fired
+2017-03-12 16:40:38.9471|TRACE|MarkdownPad2.UserControls.EditorRenderer|Loading base HTML into renderer
+2017-03-12 16:40:38.9471|TRACE|MarkdownPad2.UserControls.EditorRenderer|Loading CSS file: C:\Users\ThinkPad\AppData\Roaming\MarkdownPad 2\styles\markdownpad-github.css
+2017-03-12 16:40:39.9578|TRACE|MarkdownPad2.Core.Stats|Statistics success: True
+2017-03-12 16:40:40.0323|TRACE|MarkdownPad2.UserControls.EditorRenderer|Renderer_LoadCompleted fired
+2017-03-12 16:40:40.0323|TRACE|MarkdownPad2.UserControls.EditorRenderer|File doesn't exist (or empty doc), not rendering yet.

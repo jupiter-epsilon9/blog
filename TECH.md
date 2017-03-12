@@ -75,8 +75,23 @@ git config --get remote.origin.url
 ```
 cat << EOF > edytuj.sh
 #!/bin/bash
-	cd content/posts
-	c:/"Program Files (x86)\Notepad++/notepad++.exe" &
+    git pull
+	if [ $? -ne 0 ]; then
+	    echo "Błąd aktualizacji repozytorium GIT"
+		exit
+    fi
+	cmd "/C start /I C:/\"Program Files (x86)/MarkdownPad 2\"/MarkdownPad2.exe"
+	cmd "/C start /I C:/\"Program Files (x86)/Google/Chrome/Application\"/chrome.exe http://localhost/"	
+	hugo server -t hugo-redlounge -p 80 -b "http://localhost/"
 EOF
 chmod +x edytuj.sh
+./edytuj.sh
 ```
+
+
+# Highlight.js
+
+https://highlightjs.org/static/demo/
+https://highlightjs.org/download/
+https://highlightjs.org/usage/
+https://github.com/isagalaev/highlight.js/tree/master/src/styles
