@@ -20,7 +20,12 @@ chmod +x zatwierdz.sh
  
 # push to FTP
 ``` 
-git ftp push --syncroot public 
+cat << EOF > wyslij.sh
+#!/bin/bash
+	git ftp push --syncroot public 
+EOF
+chmod +x wyslij.sh
+./wyslij.sh
 ```
 
 # Konfiguracja GITa
@@ -75,11 +80,11 @@ git config --get remote.origin.url
 ```
 cat << EOF > edytuj.sh
 #!/bin/bash
-    git pull
-	if [ $? -ne 0 ]; then
-	    echo "Błąd aktualizacji repozytorium GIT"
-		exit
-    fi
+	git pull
+	if [ \$? -ne 0 ]; then
+        echo "Błąd aktualizacji repozytorium GIT"
+        exit
+	fi
 	cmd "/C start /I C:/\"Program Files (x86)/MarkdownPad 2\"/MarkdownPad2.exe"
 	cmd "/C start /I C:/\"Program Files (x86)/Google/Chrome/Application\"/chrome.exe http://localhost/"	
 	hugo server -t hugo-redlounge -p 80 -b "http://localhost/"
