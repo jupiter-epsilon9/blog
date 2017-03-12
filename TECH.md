@@ -46,7 +46,7 @@ chmod +x git-ftp/git-ftp
 cp git-ftp/git-ftp /bin
 ```
 
-Zapisanie url, login i haseł na stałe (uwaga, zapisane czystym tekstem w repozytorium Git!
+Zapisanie url, login i haseł czystym tekstem w lokalnym repo.
 ```
 git config git-ftp.url ftpes://ftp.example.net/public_html
 git config git-ftp.user ftp-user
@@ -58,7 +58,7 @@ Podanie poświadczeń z linii poleceń bez zapisywania
 git ftp push --syncroot public --user #### --passwd #### ftp://####/public_html
 ```
 
-Inicjalizacja (dodać --user, --passwd i url jeżeli nie zapisane)
+Inicjalizacja
 ```
 git ftp init 
 ```
@@ -69,4 +69,14 @@ git ftp init
 git remote -v  
 git remote show -n origin
 git config --get remote.origin.url
+```
+
+# Pobranie z repo gita i uruchomienie edytora
+```
+cat << EOF > edytuj.sh
+#!/bin/bash
+	cd content/posts
+	c:/"Program Files (x86)\Notepad++/notepad++.exe" &
+EOF
+chmod +x edytuj.sh
 ```
