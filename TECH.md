@@ -24,9 +24,9 @@ cat << EOF > wyslij.sh
 #!/bin/bash
 	git ftp push --syncroot public
 	if [ \$? -eq 8 ]; then
-        echo -e "\e[1m\e[93mBłąd przy wysyłaniu na serwer. Spróbuj uruchomić ./zatwierdz.sh\e[0m"
+        echo -e "\e[1m\e[31mBłąd przy wysyłaniu na serwer. Spróbuj uruchomić ./zatwierdz.sh\e[0m"
 	elif [ \$? -ne 0 ] ; then
-        echo -e "\e[1m\e[93mBłąd przy wysyłaniu na serwer.\e[0m"
+        echo -e "\e[1m\e[31mBłąd przy wysyłaniu na serwer.\e[0m"
 	else
 	    echo "Wysłano."
 	fi	
@@ -89,7 +89,7 @@ cat << EOF > edytuj.sh
 #!/bin/bash
 	git pull
 	if [ \$? -ne 0 ]; then
-        echo -e "\e[1m\e[93Błąd aktualizacji repozytorium GIT\e[0m"
+        echo -e "\e[1m\e[31Błąd aktualizacji repozytorium GIT\e[0m"
         exit
 	fi
 	cmd "/C start /I C:/\"Program Files (x86)/MarkdownPad 2\"/MarkdownPad2.exe"
