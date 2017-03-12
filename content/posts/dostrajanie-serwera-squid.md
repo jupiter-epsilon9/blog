@@ -10,7 +10,7 @@ banner = "../dostrajanie-serwera-squid.jpg"
 Moje przygody z serwerem Squid i rozwiązania problemów, jakie napotkałem podczas jego użytkowania.
 Serwer Squid w wersji 3.1.10, system operacyjny CentOS6.
 
-
+ 
 
 <!--more-->
 ## Komunikat "possible SYN flooding"
